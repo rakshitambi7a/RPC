@@ -26,7 +26,7 @@ function getComputerChoice() {
 function playRound(gameResult) {
     selection();
     if(selection.computerSelection===selection.playerSelection){
-        alert("Ties!");
+        console.log("Ties!");
         playRound(gameResult);
     }
     else if (
@@ -34,11 +34,11 @@ function playRound(gameResult) {
         (selection.computerSelection === "scissors" && selection.playerSelection === "paper") ||
         (selection.computerSelection === "paper" && selection.playerSelection === "rock")
     ) {
-        alert("Looooser!");
+        console.log("Looooser!");
         gameResult.computerWinCount++;
     }
     else{    
-        alert("You won!");
+        console.log("You won!");
     gameResult.playerWinCount++;
         }
     }
@@ -57,13 +57,13 @@ function game() {
         playRound(gameResult,selection);
     }
 
-    alert("player:"+gameResult.playerWinCount+" computer:"+gameResult.computerWinCount);
+    console.log("player:"+gameResult.playerWinCount+" computer:"+gameResult.computerWinCount);
 
 
     if (gameResult.playerWinCount > gameResult.computerWinCount) {
-        alert("Player Wins!");
+        console.log("Player Wins!");
     } else {
-        alert("Computer Wins!");
+        console.log("Computer Wins!");
     }
 }
 
