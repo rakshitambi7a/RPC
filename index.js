@@ -37,10 +37,17 @@ function playRound(gameResult) {
         console.log("Looooser!");
         gameResult.computerWinCount++;
     }
-    else{    
+    else if (
+        (selection.playerSelection === "rock" && selection.computerSelection  === "scissors") ||
+        (selection.playerSelection === "scissors" && selection.computerSelection  === "paper") ||
+        (selection.playerSelection === "paper" && selection.computerSelection === "rock")){    
         console.log("You won!");
-    gameResult.playerWinCount++;
+        gameResult.playerWinCount++;
         }
+    else{
+        alert("Wrong Input, try again!");
+        playRound(gameResult);
+    }
     }
 // play a set of five rounds
 function game() {
