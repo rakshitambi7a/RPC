@@ -1,3 +1,11 @@
+let selection = {
+    playerSelection:null,
+    computerSelection:null
+}
+let gameResult = {
+    playerWinCount: 0,
+    computerWinCount: 0
+}
 // get choice from the user
 function getPlayerChoice() {
     let input = prompt("Rock, Paper, or Scissors?");
@@ -17,62 +25,50 @@ function getComputerChoice() {
     }
 }
 //getting selection
-    function selection(playerSelection,computerSelection){
-    selection.playerSelection = getPlayerChoice();
+    function select(playerSelection,computerSelection){
+    selection.playerSelection = playerSelection;
     selection.computerSelection = getComputerChoice();
+    if(selection.computerSelection=="rock"){
+        document.querySelector("#computerChoice").textContent = '✊';
+    }
+    else if(selection.computerSelection=="paper"){
+            document.querySelector("#computerChoice").textContent = '✋';
+    }
+    else if(selection.computerSelection=="scissors"){
+        document.querySelector("#computerChoice").textContent = '✌️';
+    }
     }
 
 // playing a single round
-function playRound(gameResult) {
-    selection();
-    if(selection.computerSelection===selection.playerSelection){
-        console.log("Ties!");
-        playRound(gameResult);
-    }
-    else if (
+function playRound(playerSelection) {
+    select(playerSelection);
+    if (
         (selection.computerSelection === "rock" && selection.playerSelection === "scissors") ||
         (selection.computerSelection === "scissors" && selection.playerSelection === "paper") ||
         (selection.computerSelection === "paper" && selection.playerSelection === "rock")
     ) {
-        console.log("Looooser!");
+        document.querySelector("#currentResult").textContent='Computer +1';
         gameResult.computerWinCount++;
+
     }
     else if (
         (selection.playerSelection === "rock" && selection.computerSelection  === "scissors") ||
         (selection.playerSelection === "scissors" && selection.computerSelection  === "paper") ||
         (selection.playerSelection === "paper" && selection.computerSelection === "rock")){    
-        console.log("You won!");
+        document.querySelector("#currentResult").textContent='You +1';
         gameResult.playerWinCount++;
         }
     else{
-        alert("Wrong Input, try again!");
-        playRound(gameResult);
+        document.querySelector("#currentResult").textContent = 'Tie';
     }
-    }
-// play a set of five rounds
-function game() {
-    let gameResult = {
-        playerWinCount: 0,
-        computerWinCount: 0,
-    };
-    let selection = {
-        playerSelection:null,
-        computerSelection:null,
-    };
-    for (let i = 0; i < 5; i++) {
-        
-        playRound(gameResult,selection);
-    }
-
-    console.log("player:"+gameResult.playerWinCount+" computer:"+gameResult.computerWinCount);
-
-
-    if (gameResult.playerWinCount > gameResult.computerWinCount) {
-        console.log("Player Wins!");
-    } else {
-        console.log("Computer Wins!");
+    document.querySelector("#score").textContent=`${gameResult.playerWinCount}:${gameResult.computerWinCount}`;
+    if(gameResult.playerWinCount+gameResult.computerWinCount >=5){
+        let winner = gameResult.computerWinCount > gameResult.playerWinCount? "Computer":"You";
+        const stage = document.querySelector(".stage");
+        stage.id = "result";
+        document.querySelector("#result").textContent=`${winner} won`;
+        document.querySelector("#currentResult").style.display="none";
+        document.querySelector("#play").style.display="block";
+    
     }
 }
-
-// driver
-game();
